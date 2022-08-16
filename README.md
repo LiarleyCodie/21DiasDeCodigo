@@ -2,4 +2,4 @@
 
 > ### Rocketseat:
 > - [Instagram](https://www.instagram.com/rocketseat_oficial)
-> - [Rocketseat](https://www.rocketseat.com.br/)
+> - [Site Oficial](https://www.rocketseat.com.br/)
