@@ -1,0 +1,28 @@
+/* ---------- VARIABLES ---------- */
+:root {
+  --black: #111;
+  --white: #fff;
+  --accent-color: #5287E5;
+}
+
+/* ---------- RESETS ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+  outline: none;
+}
+
+/* ---------- MAIN CHANGES ---------- */
+html {
+  font-size: 62.5%;
+  font-family: sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--white);
+  color: var(--black);
+}
