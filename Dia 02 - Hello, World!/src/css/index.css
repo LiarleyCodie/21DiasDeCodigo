@@ -1,3 +1,5 @@
+@import url("/src/css/morganite-font.css");
+
 /* ---------- VARIABLES ---------- */
 :root {
   --black: #111;
@@ -18,11 +20,82 @@
 /* ---------- MAIN CHANGES ---------- */
 html {
   font-size: 62.5%;
-  font-family: sans-serif;
+  font-family: "Morganite", sans-serif;
 }
 
 body {
   min-height: 100vh;
-  background-color: var(--white);
-  color: var(--black);
+  color: var(--white);
+  background-color: var(--black);
+  display: grid;
+  place-items: center;
+  overflow-x: hidden;
+}
+
+/* ---------- H1 ---------- */
+.title {
+  display: none;
+  font-size: 10rem;
+  letter-spacing: 5px;
+  text-align: center;
+  line-height: 1;
+  perspective: 300px;
+  text-transform: uppercase;
+
+  transform-origin: -40% 40%;
+  /* animation: backFlipZoom 2s ease backwards; */
+}
+
+.letter {
+  display: inline-block;
+  transform-style: preserve-3d;
+
+  /* when slideLetter */
+  transform-origin: bottom right;
+  animation: slideLetter 1s ease backwards;
+
+  /* when backFlip */
+  /* transform-origin: 0% 40%;
+  animation: backFlip 2.5s ease backwards;
+  animation-timing-function: cubic-bezier(0.83,-0.52,0.35,0.98); */
+}
+
+/* add an width to white spaces */
+.letter[data-letter=" "] {
+  margin: 0.6rem;
+}
+
+/* ---------- ANIMATIONS ---------- */
+/* --- --- --- letter --- --- --- */
+@keyframes slideLetter {
+  from {
+    opacity: 0;
+    transform: translateX(150%) rotateZ(70deg);
+  }
+}
+
+@keyframes backFlip {
+  to {
+    transform: rotateX(360deg);
+  }
+}
+
+/* --- --- --- text --- --- --- */
+@keyframes backFlipZoom {
+  50% {
+    transform: scale(1.4);
+  }
+}
+
+/* ---------- MEDIA QUERIES ---------- */
+@media screen and (min-width: 768px) {
+  .title {
+    font-size: 14rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .title {
+    font-size: 18rem;
+  }
 }
