@@ -1,45 +1,53 @@
 const title = document.querySelector("#title")
+const container = document.querySelector("#container")
 const text = Array.from(title.innerText)
-title.innerText = ""
+title.innerText = ''
 
 text.forEach((char, id) => {
-  let letter = createLetter(char)
+  const letter = createLetter(char, id)
 
-  applyDelay(id, letter)
-
+  letter.style.animationDelay = `${id * 150}ms` // proccedural delay
   title.appendChild(letter)
 })
 
-function createLetter(char) {
+function createLetter(char, id) {
   const span = document.createElement("span")
   span.innerText = char
-  span.setAttribute("data-letter", char)
   span.classList.add("letter")
+  span.setAttribute("data-letter-id", id)
+  if (char === " ") span.setAttribute("data-letter-char", char)
 
   return span
 }
 
-function currentAnimation(animation, letter) {
-  const animations = ['slideLetter', 'backFlip']
-  switch (animation) {
-    case "slideLetter":
-      letter.style.transformOrigin = 'bottom right'
-      letter.style.animation = 'slideLetter 1s backwards'
-      letter.style.animationTimingFunction = 'ease'
-    case "backFlip":
-      letter.style.transformOrigin = '0% 40%'
-      letter.style.animation = "backFlip 2.5s backwards"
-      letter.style.animationTimingFunction = 'cubic-bezier(0.83,-0.52,0.35,0.98)'
-  }
-}
 
-function applyDelay(time, letter) {
-  letter.addEventListener("animationstart", ({ animationName }) => {
-    switch (animationName) {
-      case "slideLetter":
-        letter.style.animationDelay = `${time * 50}ms`
+// Animations
+fallingCamera()
+function fallingCamera () {
+  const intervalTime = 2700 // 1000 = 1s
+  let currentTime = 0
+
+  const myInterval = setInterval(() => {
+    currentTime++
+
+    if (currentTime === 1) {
+      container.style.animationName = "fallingCamera2"
     }
+
+    if (currentTime === 2) {
+      container.style.animation = "fallingCamera3 3s ease-out backwards"
+    }
+  }, intervalTime)
+  container.addEventListener("animationend", ({ animationName }) => {
+    if (animationName === 'fallingCamera3') clearInterval(myInterval)
   })
 }
 
-title.style.display = "block"
+swapTitleColor()
+function swapTitleColor () {
+  title.addEventListener("animationend", ({ animationName }) => {
+    if (animationName === "swapTitleColor") title.style.color = "#111"
+  })
+}
+
+title.style.display = 'block'

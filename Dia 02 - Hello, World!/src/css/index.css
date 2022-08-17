@@ -1,91 +1,189 @@
 @import url("/src/css/morganite-font.css");
 
-/* ---------- VARIABLES ---------- */
-:root {
-  --black: #111;
-  --white: #fff;
-  --accent-color: #5287E5;
-}
-
-/* ---------- RESETS ---------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  list-style-type: none;
   text-decoration: none;
   outline: none;
 }
 
-/* ---------- MAIN CHANGES ---------- */
 html {
   font-size: 62.5%;
-  font-family: "Morganite", sans-serif;
+  font-family: "Roboto", sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: auto;
+  text-rendering: geometricPrecision;
 }
 
 body {
   min-height: 100vh;
-  color: var(--white);
-  background-color: var(--black);
+  background: #111;
+  color: white;
   display: grid;
   place-items: center;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-/* ---------- H1 ---------- */
+main {
+  display: grid;
+  place-items: center;
+}
+
+.container {
+  position: relative;
+}
+
 .title {
   display: none;
   font-size: 10rem;
-  letter-spacing: 5px;
-  text-align: center;
+  font-weight: 100;
   line-height: 1;
-  perspective: 300px;
-  text-transform: uppercase;
-
-  transform-origin: -40% 40%;
-  /* animation: backFlipZoom 2s ease backwards; */
+  font-family: "Morganite";
+  letter-spacing: 2px;
 }
 
 .letter {
   display: inline-block;
-  transform-style: preserve-3d;
-
-  /* when slideLetter */
-  transform-origin: bottom right;
-  animation: slideLetter 1s ease backwards;
-
-  /* when backFlip */
-  /* transform-origin: 0% 40%;
-  animation: backFlip 2.5s ease backwards;
-  animation-timing-function: cubic-bezier(0.83,-0.52,0.35,0.98); */
 }
 
-/* add an width to white spaces */
-.letter[data-letter=" "] {
-  margin: 0.6rem;
+/* add width to blank space in display block */
+.letter[data-letter-char=" "] {
+  width: 12px;
 }
 
-/* ---------- ANIMATIONS ---------- */
-/* --- --- --- letter --- --- --- */
-@keyframes slideLetter {
+/* turn "World." to bold */
+.letter[data-letter-id="7"],
+.letter[data-letter-id="8"],
+.letter[data-letter-id="9"],
+.letter[data-letter-id="10"],
+.letter[data-letter-id="11"],
+.letter[data-letter-id="12"] {
+  font-weight: 600;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  background: rgb(230, 230, 230);
+  position: absolute;
+  left: 0;
+  top: 0;
+  /* border-radius: 0%; */
+  clip-path: circle(100% at 50% 50%);
+  z-index: -2;
+  animation: riseBackground 3s ease backwards 7s;
+}
+
+.author {
+  width: 100%;
+  color: #111;
+  position: absolute;
+  font-size: 1.5rem;
+  bottom: 3%;
+  text-align: center;
+  z-index: 1;
+  opacity: 0.8;
+  transition: opacity 300ms ease;
+}
+
+.author:hover {
+  opacity: 1;
+}
+
+.author a {
+  font-weight: 600;
+  color: #8257e5;
+}
+
+/* ANIMATIONS */
+.container {
+  animation: fallingCamera1 5s linear backwards;
+}
+
+.title {
+  animation: swapTitleColor 3s ease backwards 6.5s;
+}
+
+.letter {
+  animation: fallingLetters 5s ease backwards;
+}
+
+.gray-tape {
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  background: rgb(200, 200, 200);
+  top: 38%;
+  transform: translateY(-50%);
+  z-index: -1;
+  clip-path: inset(0 0 0 0);
+  /*         inset(top left bottom right) */
+  right: -4.25%;
+  animation: growTape 2s ease backwards 8s;
+}
+
+.author {
+  color: rgb(100, 100, 100);
+  animation: showAuthor 1s ease backwards 9s;
+}
+
+@keyframes growTape {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+@keyframes swapTitleColor {
+  to {
+    color: #111;
+  }
+}
+
+@keyframes fallingLetters {
   from {
     opacity: 0;
-    transform: translateX(150%) rotateZ(70deg);
+    transform: translateY(-100%);
   }
 }
 
-@keyframes backFlip {
-  to {
-    transform: rotateX(360deg);
+@keyframes fallingCamera1 {
+  from, to {
+    transform: scale(6);
+    transform-origin: 0 30%;
+  }
+}
+@keyframes fallingCamera2 {
+  from, to {
+    transform: scale(4);
+    transform-origin: 100% 30%;
+  }
+}
+@keyframes fallingCamera3 {
+  from {
+    transform: scale(1.1)
   }
 }
 
-/* --- --- --- text --- --- --- */
-@keyframes backFlipZoom {
-  50% {
-    transform: scale(1.4);
+@keyframes riseBackground {
+  from {
+    clip-path: circle(0% at 50% 50%);
   }
 }
+
+@keyframes showAuthor {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+    filter: grayscale(100%);
+  }
+  80% {
+    filter: grayscale(100%);
+  }
+}
+
 
 /* ---------- MEDIA QUERIES ---------- */
 @media screen and (min-width: 768px) {
