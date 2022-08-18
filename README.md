@@ -7,7 +7,7 @@
 ### Desafios:
  1. :white_check_mark: Criar este repositório
  2. :heavy_check_mark: Hello, World!
- 3. :x: Botão Animado
+ 3. :clock2: Botão Animado
  4. :x: Calculadora
  5. :x: Página de Erro 404
  6. :x: Card com Glassmorphism
